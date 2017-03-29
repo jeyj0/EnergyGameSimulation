@@ -4,21 +4,25 @@ import com.github.jeyj0.energygame.players.Player;
 
 public abstract class Building extends Card {
 
-	private String condition;
-	private String effect;
+	private String conditionText;
+	private String conditionCode;
+	private String effectText;
+	private String effectCode;
 	
-	public Building(Player owner, String name, String condition, String effect) {
+	public Building(Player owner, String name, String conditionText, String conditionCode, String effectText, String effectCode) {
 		super(owner, name);
-		this.condition = condition;
-		this.effect = effect;
+		this.conditionText = conditionText;
+		this.conditionCode = conditionCode;
+		this.effectText = effectText;
+		this.effectCode = effectCode;
 	}
-	
+
 	public String getConditionText() {
-		return condition;
+		return conditionText;
 	}
-	
+
 	public String getEffectText() {
-		return effect;
+		return effectText;
 	}
 
 }
