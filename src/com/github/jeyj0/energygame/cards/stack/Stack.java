@@ -4,47 +4,58 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.github.jeyj0.energygame.Game;
-import com.github.jeyj0.energygame.cards.Card;
 import com.github.jeyj0.energygame.players.Player;
 
 public class Stack {
 
 	private Game game;
-	private ArrayList<Card> cards;
+	private ArrayList<Integer> cards;
 	
 	public Stack(Player player) {
-		this(player, new ArrayList<Card>());
+		this(player, new ArrayList<Integer>());
 	}
 
-	public Stack(Player player, ArrayList<Card> cards) {
+	public Stack(Player player, ArrayList<Integer> cards) {
 		this.game = player.getGame();
 		this.cards = cards;
 	}
 	
-	public ArrayList<Card> getCards() {
+	public ArrayList<Integer> getCards() {
 		return cards;
 	}
 	
-	public Card drawTop() {
-		Card card = cards.get(0);
+	public int drawTop() {
+		if (getStackSize() <= 0)
+			return -1;
+		
+		int card = cards.get(0);
 		cards.remove(card);
 		return card;
 	}
 	
-	public Card drawBottom() {
-		Card card = cards.get(cards.size() - 1);
+	public int drawBottom() {
+		if (getStackSize() <= 0)
+			return -1;
+		
+		int card = cards.get(cards.size() - 1);
 		cards.remove(card);
 		return card;
 	}
 	
-	public Card drawRandom() {
-		Card card = cards.get(game.random.nextInt(cards.size()));
+	public int drawRandom() {
+		if (getStackSize() <= 0)
+			return -1;
+		
+		int card = cards.get(game.random.nextInt(cards.size()));
 		cards.remove(card);
 		return card;
 	}
 	
-	public Card drawRandomAndShuffle() {
-		Card card = drawRandom();
+	public int drawRandomAndShuffle() {
+		if (getStackSize() <= 0)
+			return -1;
+		
+		int card = drawRandom();
 		shuffle();
 		return card;
 	}
@@ -54,17 +65,17 @@ public class Stack {
 		return true;
 	}
 	
-	public boolean addCardToBottom(Card card) {
+	public boolean addCardToBottom(int card) {
 		cards.add(card);
 		return true;
 	}
 	
-	public boolean addCardToTop(Card card) {
+	public boolean addCardToTop(int card) {
 		cards.add(0, card);
 		return true;
 	}
 	
-	public boolean addCardAndShuffle(Card card) {
+	public boolean addCardAndShuffle(int card) {
 		cards.add(card);
 		return shuffle();
 	}

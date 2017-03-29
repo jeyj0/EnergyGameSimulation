@@ -22,7 +22,7 @@ public abstract class Player {
 
 	private Game game;
 
-	public Player(ArrayList<Card> deck) {
+	public Player(ArrayList<Integer> deck) {
 		this.deck = new Stack(this, deck);
 		this.graveyard = new Stack(this);
 		this.hand = new Stack(this);
@@ -36,8 +36,8 @@ public abstract class Player {
 
 	public void turn() {
 		for (int i = 0; i < drawAmount; i++) {
-			Card card = deck.drawTop();
-			if (card == null) {
+			int card = deck.drawTop();
+			if (card == -1) {
 				loose();
 			}
 			hand.addCardToTop(card);
