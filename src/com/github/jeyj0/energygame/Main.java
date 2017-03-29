@@ -1,5 +1,8 @@
 package com.github.jeyj0.energygame;
 
+import java.io.IOException;
+
+import com.github.jeyj0.energygame.cards.Card;
 import com.github.jeyj0.energygame.players.Fossil;
 import com.github.jeyj0.energygame.players.Nuclear;
 import com.github.jeyj0.energygame.players.Player;
@@ -8,15 +11,13 @@ import com.github.jeyj0.energygame.players.Wind;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Game game = new Game(null);
+	public static void main(String[] args) throws IOException {
+		Card.loadCards();
 
-		Player nuclear = new Nuclear();
-		Player fossil = new Fossil();
-		Player solar = new Solar();
-		Player wind = new Wind();
+		Player[] players = new Player[] { new Nuclear(), new Fossil(), new Solar(), new Wind() };
 
-		Player[] players = new Player[] { nuclear, fossil, solar, wind };
+		Game game = new Game(players);
+
 		game.init();
 	}
 
