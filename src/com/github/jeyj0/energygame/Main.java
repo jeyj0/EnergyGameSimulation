@@ -17,7 +17,6 @@ public class Main {
 		Player[] players = new Player[] { new Nuclear(), new Fossil(), new Solar(), new Wind() };
 
 		Game game = new Game(players);
-
 		game.init();
 	}
 

@@ -9,6 +9,10 @@ import com.opencsv.CSVReader;
 public abstract class Card {
 
 	public static Card[] CARDS;
+	public static ArrayList<Integer> NUCLEAR_DECK;
+	public static ArrayList<Integer> FOSSIL_DECK;
+	public static ArrayList<Integer> SOLAR_DECK;
+	public static ArrayList<Integer> WIND_DECK;
 
 	private String name;
 
@@ -23,6 +27,7 @@ public abstract class Card {
 		CARDS = new Card[content.size() - 1];
 
 		String[] line;
+		int cardID;
 		for (int i = 1; i < content.size() - 1; i++) {
 			line = content.get(i);
 
@@ -38,7 +43,16 @@ public abstract class Card {
 				card = new Support(line[1], line[6], line[7]);
 			
 			// add card to list
-			CARDS[i - 1] = card;
+			cardID = i - 1;
+			CARDS[cardID] = card;
+			for (int n = 0; n < Integer.parseInt(line[8]); n++)
+				NUCLEAR_DECK.add(cardID);
+			for (int f = 0; f < Integer.parseInt(line[9]); f++)
+				FOSSIL_DECK.add(cardID);
+			for (int s = 0; s < Integer.parseInt(line[10]); s++)
+				SOLAR_DECK.add(cardID);
+			for (int w = 0; w < Integer.parseInt(line[11]); w++)
+				WIND_DECK.add(cardID);
 		}
 	}
 
