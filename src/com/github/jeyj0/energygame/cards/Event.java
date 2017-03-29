@@ -14,5 +14,10 @@ public class Event extends Card {
 	public String getEffectText() {
 		return effectText;
 	}
+	
+	public boolean executeEffect() {
+		// TODO
+		return false;
+	}
 
 }

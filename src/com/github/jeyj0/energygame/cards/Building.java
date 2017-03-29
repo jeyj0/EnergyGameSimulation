@@ -22,5 +22,15 @@ public class Building extends Card {
 	public String getEffectText() {
 		return effectText;
 	}
+	
+	public boolean executeCondition() {
+		// TODO
+		return false;
+	}
+	
+	public boolean executeEffect() {
+		// TODO
+		return false;
+	}
 
 }

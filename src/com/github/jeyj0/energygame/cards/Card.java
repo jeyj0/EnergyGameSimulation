@@ -19,6 +19,10 @@ public abstract class Card {
 	public Card(String name) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 	public static void loadCards() throws IOException {
 		CSVReader reader = new CSVReader(new FileReader("res/cards.csv"));

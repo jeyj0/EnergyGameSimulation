@@ -15,4 +15,9 @@ public class Support extends Card {
 		return effectText;
 	}
 
+	public boolean executeEffect() {
+		// TODO
+		return false;
+	}
+
 }
