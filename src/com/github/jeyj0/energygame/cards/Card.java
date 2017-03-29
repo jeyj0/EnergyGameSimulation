@@ -23,17 +23,11 @@ public abstract class Card {
 		CSVReader reader = new CSVReader(new FileReader("res/cards.csv"));
 
 		ArrayList<String[]> content = (ArrayList<String[]>) reader.readAll();
-		CARDS = new Card[content.size()];
+		CARDS = new Card[content.size() - 1];
 
 		String[] line;
-		for (int i = 1; i < content.size(); i++) {
+		for (int i = 1; i < content.size() - 1; i++) {
 			line = content.get(i);
-
-			for (String s : line) {
-
-				System.out.print(s + " | ");
-			}
-			System.out.print("\n");
 
 			// create card from line
 			Card card;
@@ -47,7 +41,7 @@ public abstract class Card {
 				card = new Support(line[1], line[6], line[7]);
 			
 			// add card to list
-			CARDS[i] = card;
+			CARDS[i - 1] = card;
 		}
 	}
 
