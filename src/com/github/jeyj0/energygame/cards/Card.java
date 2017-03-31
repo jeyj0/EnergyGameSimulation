@@ -35,7 +35,12 @@ public abstract class Card {
 
 		ArrayList<String[]> content = (ArrayList<String[]>) reader.readAll();
 		CARDS = new Card[content.size() - 1];
-
+		
+		NUCLEAR_DECK = new ArrayList<Integer>();
+		FOSSIL_DECK = new ArrayList<Integer>();
+		SOLAR_DECK = new ArrayList<Integer>();
+		WIND_DECK = new ArrayList<Integer>();
+		
 		String[] line;
 		int cardID;
 		for (int i = 1; i < content.size() - 1; i++) {
