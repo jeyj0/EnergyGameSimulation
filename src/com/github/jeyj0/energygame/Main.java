@@ -13,6 +13,8 @@ import com.github.jeyj0.energygame.players.Wind;
 
 public class Main {
 
+	public static final int ROUNDS = 3;
+	
 	public static void main(String[] args) throws IOException, ScriptException {
 		JavaScriptExecuter jsExec = new JavaScriptExecuter();
 		Card.loadCards(jsExec);
@@ -22,6 +24,9 @@ public class Main {
 		Game game = new Game(players);
 		game.init();
 		jsExec.init(game);
+		
+		for (int i = 0; i < ROUNDS; i++)
+			game.round();
 	}
 
 }
