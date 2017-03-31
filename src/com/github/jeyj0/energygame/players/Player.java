@@ -2,8 +2,11 @@ package com.github.jeyj0.energygame.players;
 
 import java.util.ArrayList;
 
+import javax.script.ScriptException;
+
 import com.github.jeyj0.energygame.Game;
 import com.github.jeyj0.energygame.cards.Card;
+import com.github.jeyj0.energygame.cards.Support;
 import com.github.jeyj0.energygame.cards.stack.LimitedStack;
 import com.github.jeyj0.energygame.cards.stack.Stack;
 
@@ -42,6 +45,18 @@ public abstract class Player {
 			}
 			hand.addCardToTop(card);
 		}
+		
+		try {
+			((Support) Card.CARDS[hand.getCards().get(0)]).executeEffect();
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void draw() {
+		System.out.println("Drawing");
+		hand.addCardToTop(deck.drawTop());
 	}
 
 	public void dropFromHand() {

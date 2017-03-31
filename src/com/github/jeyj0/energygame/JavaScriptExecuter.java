@@ -18,18 +18,20 @@ public class JavaScriptExecuter {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		engine = manager.getEngineByName("js");
 	}
-	
+
 	public void init(Game game) {
 		this.game = game;
 	}
-	
+
 	public ScriptEngine getEngine() {
 		return engine;
 	}
-	
+
 	public Object runWithStandardParams(JavaScript jscript) throws ScriptException {
 		SimpleBindings bindings = new SimpleBindings();
 		bindings.put("game", game);
+		bindings.put("me", game.getCurrent());
+		bindings.put("opponents", game.getOpponents());
 		return jscript.runWithParams(bindings);
 	}
 

@@ -28,8 +28,9 @@ public class Main {
 		jsExec.init(game);
 		
 		System.out.println("Start gameplay");
-		for (int i = 0; i < ROUNDS; i++)
+		for (int i = 0; i < ROUNDS; i++) {
 			game.round();
+		}
 	}
 
 }
