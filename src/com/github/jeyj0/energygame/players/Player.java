@@ -24,6 +24,8 @@ public abstract class Player {
 	private int drawAmount = 1;
 
 	private Game game;
+	
+	private boolean hasLost;
 
 	public Player(ArrayList<Integer> deck) {
 		this.deck = new Stack(this, deck);
@@ -35,28 +37,42 @@ public abstract class Player {
 
 	public void init(Game game) {
 		this.game = game;
+		deck.shuffle();
+		hasLost = false;
 	}
 
 	public void turn() {
-		for (int i = 0; i < drawAmount; i++) {
-			int card = deck.drawTop();
-			if (card == -1) {
-				loose();
-			}
-			hand.addCardToTop(card);
-		}
+		draw(drawAmount);
 		
+		if (hasLost)
+			return;
+
+		// TODO improve AI
 		try {
 			((Support) Card.CARDS[hand.getCards().get(0)]).executeEffect();
 		} catch (ScriptException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.err.println(this.getClass().getSimpleName() + " has no card");
 		}
 	}
 
 	public void draw() {
-		System.out.println("Drawing");
-		hand.addCardToTop(deck.drawTop());
+		draw(1);
+	}
+
+	public void draw(int amount) {
+		System.out.println(this.getClass().getSimpleName() + " drawing " + amount);
+
+		for (int i = 0; i < amount; i++) {
+			int card = deck.drawTop();
+			if (card == -1) {
+				loose();
+				break;
+			}
+			hand.addCardToTop(card);
+		}
 	}
 
 	public void dropFromHand() {
@@ -76,11 +92,17 @@ public abstract class Player {
 		graveyard.addCardToTop(hand.drawRandom());
 	}
 
+	public Stack getHand() {
+		return hand;
+	}
+
 	public void setDrawAmount(int amount) {
 		drawAmount = amount;
 	}
 
 	public void loose() {
+		System.err.println(this.getClass().getSimpleName() + " lost");
+		hasLost = true;
 		game.playerLoose(this);
 	}
 

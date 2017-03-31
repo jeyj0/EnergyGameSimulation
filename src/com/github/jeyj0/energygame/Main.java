@@ -28,7 +28,10 @@ public class Main {
 		jsExec.init(game);
 		
 		System.out.println("Start gameplay");
-		for (int i = 0; i < ROUNDS; i++) {
+		int round = 1;
+		while (!game.hasEnded()) {
+			System.out.println("==============");
+			System.out.println("Round " + round++);
 			game.round();
 		}
 	}

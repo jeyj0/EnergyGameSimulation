@@ -16,6 +16,8 @@ public class Game {
 	private int weatherLock;
 	private Player current;
 	private Player[] opponents;
+	
+	private boolean hasEnded;
 
 	public Game(Player[] players) {
 		this.players = players;
@@ -23,6 +25,8 @@ public class Game {
 		random = new Random();
 		weatherLock = 0;
 		playersLost = new ArrayList<Player>(players.length - 1);
+		
+		hasEnded = false;
 	}
 	
 	public void init() {
@@ -33,7 +37,7 @@ public class Game {
 	public void round() {
 		updateWeather();
 
-		for (int i = 0; i < players.length; i++) {
+		for (int i = 0; i < players.length && !hasEnded; i++) {
 			current = players[i];
 
 			// skip players that lost
@@ -41,7 +45,7 @@ public class Game {
 				continue;
 			
 			// reconfigure opponent list
-			opponents = new Player[players.length - 1];
+			opponents = new Player[players.length - 1 - playersLost.size()];
 			int opIndex = 0;
 			for (int pIndex = 0; opIndex < opponents.length; pIndex++)
 				if (!playersLost.contains(players[pIndex]) && players[pIndex] != current)
@@ -83,11 +87,16 @@ public class Game {
 	}
 
 	public void playerWin(Player player) {
-		System.out.println("Player " + player.toString() + " won!");
+		System.err.println(player.getClass().getSimpleName() + " won!");
 	}
 
 	public void end() {
+		hasEnded = true;
 		System.out.println("Game ended.");
+	}
+	
+	public boolean hasEnded() {
+		return hasEnded;
 	}
 
 }

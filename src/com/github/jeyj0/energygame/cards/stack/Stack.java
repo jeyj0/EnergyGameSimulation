@@ -29,7 +29,7 @@ public class Stack {
 			return -1;
 		
 		int card = cards.get(0);
-		cards.remove(card);
+		cards.remove(new Integer(card));
 		return card;
 	}
 	
