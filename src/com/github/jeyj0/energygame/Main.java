@@ -12,10 +12,18 @@ import com.github.jeyj0.energygame.players.Solar;
 import com.github.jeyj0.energygame.players.Wind;
 
 public class Main {
-
-	public static final int ROUNDS = 3;
 	
+	/**
+	 * Main method - starts game
+	 * @param args
+	 * @throws IOException
+	 * @throws ScriptException
+	 */
 	public static void main(String[] args) throws IOException, ScriptException {
+		/*
+		 * Setup
+		 */
+		
 		System.out.println("Creating script executer");
 		JavaScriptExecuter jsExec = new JavaScriptExecuter();
 		System.out.println("Reading cards (compiling code)");
@@ -26,6 +34,10 @@ public class Main {
 		Game game = new Game(players);
 		game.init();
 		jsExec.init(game);
+		
+		/*
+		 * Game
+		 */
 		
 		System.out.println("Start gameplay");
 		int round = 1;
