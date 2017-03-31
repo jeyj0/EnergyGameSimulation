@@ -14,10 +14,12 @@ public class JavaScriptExecuter {
 	private ScriptEngine engine;
 	private Game game;
 
-	public JavaScriptExecuter(Game game) throws ScriptException, IOException {
+	public JavaScriptExecuter() throws ScriptException, IOException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		engine = manager.getEngineByName("js");
-		
+	}
+	
+	public void init(Game game) {
 		this.game = game;
 	}
 	
@@ -33,7 +35,7 @@ public class JavaScriptExecuter {
 
 	// ======================================================================================
 
-	public class JavaScript {
+	public static class JavaScript {
 
 		public String script;
 		public CompiledScript compiled;

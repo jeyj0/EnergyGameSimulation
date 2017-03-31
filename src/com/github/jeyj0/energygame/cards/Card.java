@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.script.ScriptException;
+
+import com.github.jeyj0.energygame.JavaScriptExecuter;
 import com.opencsv.CSVReader;
 
 public abstract class Card {
@@ -15,16 +18,19 @@ public abstract class Card {
 	public static ArrayList<Integer> WIND_DECK;
 
 	private String name;
+	protected JavaScriptExecuter jsExec;
 
-	public Card(String name) {
+	public Card(String name, JavaScriptExecuter jsExec) {
 		this.name = name;
+		this.jsExec = jsExec;
 	}
 	
 	public String getName() {
 		return name;
 	}
 
-	public static void loadCards() throws IOException {
+	@SuppressWarnings("resource")
+	public static void loadCards(JavaScriptExecuter jsExec) throws IOException, ScriptException {
 		CSVReader reader = new CSVReader(new FileReader("res/cards.csv"));
 
 		ArrayList<String[]> content = (ArrayList<String[]>) reader.readAll();
@@ -38,13 +44,13 @@ public abstract class Card {
 			// create card from line
 			Card card;
 			if (line[0] == "support")
-				card = new Event(line[1], line[6], line[7]);
+				card = new Event(line[1], line[6], line[7], jsExec);
 			else if (line[0] == "building")
-				card = new Building(line[1], line[4], line[5], line[6], line[7]);
+				card = new Building(line[1], line[4], line[5], line[6], line[7], jsExec);
 			else if (line[0] == "plan")
-				card = new Plan(line[1], line[4], line[5], line[6], line[7]);
+				card = new Plan(line[1], line[4], line[5], line[6], line[7], jsExec);
 			else // if (line[0] == "event")
-				card = new Support(line[1], line[6], line[7]);
+				card = new Support(line[1], line[6], line[7], jsExec);
 			
 			// add card to list
 			cardID = i - 1;
