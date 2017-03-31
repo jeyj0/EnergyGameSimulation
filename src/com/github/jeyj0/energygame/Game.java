@@ -63,6 +63,14 @@ public class Game {
 	public boolean isBadWeather() {
 		return !weather;
 	}
+	
+	public Player getCurrent() {
+		return current;
+	}
+	
+	public Player[] getOpponents() {
+		return opponents;
+	}
 
 	public void playerLoose(Player player) {
 		playersLost.add(player);
