@@ -9,11 +9,13 @@ public class Game {
 
 	public Random random;
 
-	private boolean weather;
-	private int weatherLock;
-
 	private Player[] players;
 	private ArrayList<Player> playersLost;
+	
+	private boolean weather;
+	private int weatherLock;
+	private Player current;
+	private Player[] opponents;
 
 	public Game(Player[] players) {
 		this.players = players;
@@ -31,15 +33,21 @@ public class Game {
 	public void round() {
 		updateWeather();
 
-		Player player;
 		for (int i = 0; i < players.length; i++) {
-			player = players[i];
+			current = players[i];
 
 			// skip players that lost
-			if (playersLost.contains(player))
+			if (playersLost.contains(current))
 				continue;
+			
+			// reconfigure opponent list
+			opponents = new Player[players.length - 1];
+			int opIndex = 0;
+			for (int pIndex = 0; opIndex < opponents.length; pIndex++)
+				if (!playersLost.contains(players[pIndex]) && players[pIndex] != current)
+					opponents[opIndex++] = players[pIndex];
 
-			players[i].turn();
+			current.turn();
 		}
 	}
 
